@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.ContactsContract;
 import android.speech.tts.TextToSpeech;
-import android.speech.tts.UtteranceProgressListener;
 import android.telecom.Call;
 import android.telecom.CallAudioState;
 import android.telecom.InCallService;
@@ -33,16 +32,15 @@ public class AssistantCallService extends InCallService {
     public void onCreate() {
         super.onCreate();
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        
+
         tts = new TextToSpeech(getApplicationContext(), status -> {
             if (status == TextToSpeech.SUCCESS) {
-                // Route TTS voice directly into the Voice Call Stream
-                AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                AudioAttributes attributes = new AudioAttributes.Builder()
                         .setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
                         .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
                         .build();
-                tts.setAudioAttributes(audioAttributes);
-                
+                tts.setAudioAttributes(attributes);
+
                 int result = tts.setLanguage(new Locale("ta", "IN"));
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     tts.setLanguage(Locale.US);
@@ -62,16 +60,15 @@ public class AssistantCallService extends InCallService {
                 incomingNumber = handle.getSchemeSpecificPart();
             }
 
-            // Check if contact already exists in phonebook
             if (isKnownContact(incomingNumber)) {
-                return; // Let normal ring happen for saved contacts
+                return;
             }
 
             // Auto answer unknown incoming SIM 1 call after 2 seconds
             mainHandler.postDelayed(() -> {
                 if (currentCall != null && currentCall.getState() == Call.STATE_RINGING) {
                     currentCall.answer(0);
-                    setupCallAudioAndStartBot();
+                    configureAudioAndRunBot();
                 }
             }, 2000);
         }
@@ -92,15 +89,14 @@ public class AssistantCallService extends InCallService {
         return false;
     }
 
-    private void setupCallAudioAndStartBot() {
+    private void configureAudioAndRunBot() {
         if (audioManager != null) {
-            audioManager.setMode(AudioManager.MODE_IN_CALL);
-            // Disable loudspeaker so it does not play out loud on your phone
-            audioManager.setSpeakerphoneOn(false);
+            audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+            audioManager.setMicrophoneMute(false);
+            // Low/medium speaker routing so audio transmits clearly through mic uplink
+            audioManager.setSpeakerphoneOn(true);
+            setAudioRoute(CallAudioState.ROUTE_SPEAKER);
         }
-        
-        // Ensure InCall audio route is set to earpiece mode
-        setAudioRoute(CallAudioState.ROUTE_EARPIECE);
 
         // 1. Greet and ask for language
         speak("வணக்கம், நான் இம்ரானின் வாய்ஸ் அசிஸ்டண்ட். Hi, I am Imran's personal voice assistant. Please choose Tamil or English.");
@@ -117,12 +113,12 @@ public class AssistantCallService extends InCallService {
             detectedReason = "Wants to speak with Imran urgently";
         }, 13000);
 
-        // 4. Closing message
+        // 4. Thank you message
         mainHandler.postDelayed(() -> {
             speak("இம்ரானை அழைத்ததற்கு நன்றி. உங்கள் தகவலைப் பெற்றுக்கொண்டோம், அவர் விரைவில் பதிலளிப்பார். Thank you, Imran will call you back shortly.");
         }, 19000);
 
-        // Auto Disconnect and Log to Dashboard
+        // Disconnect and log to Dashboard
         mainHandler.postDelayed(() -> {
             CallStorageHelper.saveRecord(getApplicationContext(), new CallRecord(
                     incomingNumber,
@@ -135,7 +131,8 @@ public class AssistantCallService extends InCallService {
             if (currentCall != null) {
                 currentCall.disconnect();
             }
-        }, 26000);
+            resetAudio();
+        }, 25000);
     }
 
     private void speak(String text) {
@@ -143,7 +140,14 @@ public class AssistantCallService extends InCallService {
             Bundle params = new Bundle();
             params.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_VOICE_CALL);
             params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, 1.0f);
-            tts.speak(text, TextToSpeech.QUEUE_ADD, params, "CALL_AI_" + System.currentTimeMillis());
+            tts.speak(text, TextToSpeech.QUEUE_ADD, params, "ASSISTANT_VOICE_" + System.currentTimeMillis());
+        }
+    }
+
+    private void resetAudio() {
+        if (audioManager != null) {
+            audioManager.setSpeakerphoneOn(false);
+            audioManager.setMode(AudioManager.MODE_NORMAL);
         }
     }
 
@@ -152,6 +156,7 @@ public class AssistantCallService extends InCallService {
         super.onCallRemoved(call);
         if (currentCall == call) {
             currentCall = null;
+            resetAudio();
         }
     }
 
@@ -161,6 +166,7 @@ public class AssistantCallService extends InCallService {
             tts.stop();
             tts.shutdown();
         }
+        resetAudio();
         super.onDestroy();
     }
 }
