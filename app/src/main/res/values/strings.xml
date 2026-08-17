@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">Personal Call Assistant</string>
-    <string name="title_v2">Personal Call Assistant V2</string>
-    <string name="hint_phone">Enter Phone Number</string>
-    <string name="btn_check">Check Contact</string>
-    <string name="permission_rationale">Contacts permission is required to check whether this number exists in your phone.</string>
-    <string name="permission_denied">Permission denied. Cannot check contacts without permission.</string>
-    <string name="invalid_number">Please enter a valid phone number (at least 6 digits).</string>
+    <string name="title_v3">Call Assistant V3 (SIM 1)</string>
+    <string name="listening">Listening... Speak a name to call</string>
+    <string name="tap_to_speak">Tap to speak or type name below</string>
+    <string name="hint_name">Contact Name or Voice Query</string>
+    <string name="btn_call_sim1">Call using SIM 1</string>
+    <string name="calling_status">Placing call to %1$s via SIM 1...</string>
+    <string name="no_match">No matching contact found.</string>
+    <string name="permission_required">Contacts and Calling permissions are needed for hands-free SIM 1 dialing.</string>
 </resources>
