@@ -1,0 +1,13 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Call Assistant Icon Foreground -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,28c-5.52,0 -10,4.48 -10,10s4.48,10 10,10s10,-4.48 10,-10S59.52,28 54,28zM54,52c-8.84,0 -20,4.44 -20,13.33V68h40v-2.67C74,56.44 62.84,52 54,52z" />
+    <path
+        android:fillColor="#81D4FA"
+        android:pathData="M33,36c0,-2.21 -1.79,-4 -4,-4s-4,1.79 -4,4c0,13.25 10.75,24 24,24c2.21,0 4,-1.79 4,-4s-1.79,-4 -4,-4C39.63,52 33,45.37 33,36z" />
+</vector>
