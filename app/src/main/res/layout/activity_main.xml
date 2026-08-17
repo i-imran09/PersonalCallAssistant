@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#F5F7FB">
+    android:background="#F0F4F8">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,11 +13,11 @@
         android:padding="24dp"
         android:gravity="center_horizontal">
 
-        <!-- App Header Card -->
+        <!-- Title & Status Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp"
             app:cardBackgroundColor="#FFFFFF">
@@ -26,69 +26,86 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp"
+                android:padding="16dp"
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/tvHeaderTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="📞"
-                    android:textSize="48sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/title_v2"
+                    android:text="@string/title_v3"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#1976D2"
-                    android:layout_marginTop="8dp" />
+                    android:textColor="#0D47A1" />
 
                 <TextView
+                    android:id="@+id/tvVoiceStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Check if phone number exists in your contacts"
-                    android:textSize="13sp"
-                    android:textColor="#666666"
+                    android:text="@string/tap_to_speak"
+                    android:textSize="14sp"
+                    android:textColor="#546E7A"
                     android:layout_marginTop="4dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Input Section -->
+        <!-- Big Voice Mic Button -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabVoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:contentDescription="Voice Command"
+            app:fabCustomSize="84dp"
+            app:maxImageSize="40dp"
+            app:tint="#FFFFFF"
+            android:backgroundTint="#1976D2"
+            android:src="@android:drawable/ic_btn_speak_now" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Say: Call [Name]"
+            android:textSize="13sp"
+            android:textStyle="italic"
+            android:textColor="#78909C"
+            android:layout_marginTop="8dp" />
+
+        <!-- Manual Query Input Box -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutPhone"
+            android:id="@+id/inputLayoutName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:hint="@string/hint_phone"
+            android:layout_marginTop="28dp"
+            android:hint="@string/hint_name"
             app:boxCornerRadiusTopStart="12dp"
             app:boxCornerRadiusTopEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusBottomEnd="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPhoneNumber"
+                android:id="@+id/etNameQuery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
+                android:inputType="textPersonName"
                 android:maxLines="1"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Check Button -->
+        <!-- Manual SIM 1 Trigger Button -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCheckContact"
+            android:id="@+id/btnCallAction"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
-            android:text="@string/btn_check"
+            android:text="@string/btn_call_sim1"
             android:textSize="16sp"
             android:textStyle="bold"
             app:cornerRadius="12dp"
-            android:backgroundTint="#1976D2" />
+            android:backgroundTint="#0D47A1" />
 
-        <!-- Result Card -->
+        <!-- Call Status Result Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardResult"
             android:layout_width="match_parent"
@@ -96,32 +113,31 @@
             android:layout_marginTop="24dp"
             android:visibility="gone"
             app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
+            app:cardElevation="3dp"
             app:cardBackgroundColor="#FFFFFF">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="18dp">
 
                 <TextView
-                    android:id="@+id/tvResultStatus"
+                    android:id="@+id/tvMatchStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvContactDetails"
+                    android:id="@+id/tvMatchDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textColor="#333333"
-                    android:layout_marginTop="8dp" />
+                    android:textSize="14sp"
+                    android:textColor="#37474F"
+                    android:layout_marginTop="6dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 </ScrollView>
-
