@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.PersonalCallAssistant" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">#1976D2</item>
+        <item name="colorPrimaryVariant">#0D47A1</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">#00897B</item>
+        <item name="colorSecondaryVariant">#004D40</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+    </style>
+</resources>
