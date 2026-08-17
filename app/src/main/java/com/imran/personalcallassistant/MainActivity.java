@@ -34,11 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvContactDetails;
 
     @Override
-    protected void deliberateOnCreate(Bundle savedInstanceState) {
-        // helper
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -61,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private void checkPermissionAndVerifyContact() {
         String phoneInput = etPhoneNumber.getText() != null ? etPhoneNumber.getText().toString().trim() : "";
 
-        // Normalize & validate basic length
         String digitsOnly = phoneInput.replaceAll("[^0-9+]", "");
         if (TextUtils.isEmpty(digitsOnly) || digitsOnly.length() < 6) {
             inputLayoutPhone.setError(getString(R.string.invalid_number));
@@ -71,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
             inputLayoutPhone.setError(null);
         }
 
-        // Check Runtime Permission
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) 
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
@@ -89,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = null;
 
         try {
-            // Android PhoneLookup URI automatically handles variations (+91, spaces, dashes)
             Uri uri = Uri.withAppendedPath(
                     ContactsContract.PhoneLookup.CONTENT_FILTER_URI, 
                     Uri.encode(phoneNumber)
@@ -119,11 +111,11 @@ public class MainActivity extends AppCompatActivity {
         cardResult.setVisibility(View.VISIBLE);
         if (contactName != null) {
             tvResultStatus.setText("✅ Contact Found");
-            tvResultStatus.setTextColor(Color.parseColor("#2E7D32")); // Green
+            tvResultStatus.setTextColor(Color.parseColor("#2E7D32"));
             tvContactDetails.setText("Name: " + contactName + "\nSearched: " + phoneNumber);
         } else {
             tvResultStatus.setText("❌ Contact Not Found");
-            tvResultStatus.setTextColor(Color.parseColor("#C62828")); // Red
+            tvResultStatus.setTextColor(Color.parseColor("#C62828"));
             tvContactDetails.setText("This phone number is not saved in your contacts list.");
         }
     }
@@ -140,11 +132,10 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 cardResult.setVisibility(View.VISIBLE);
                 tvResultStatus.setText("⚠️ Permission Required");
-                tvResultStatus.setTextColor(Color.parseColor("#E65100")); // Orange
+                tvResultStatus.setTextColor(Color.parseColor("#E65100"));
                 tvContactDetails.setText(getString(R.string.permission_denied));
                 Toast.makeText(this, R.string.permission_rationale, Toast.LENGTH_LONG).show();
             }
         }
     }
 }
-
