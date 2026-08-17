@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvCallerName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Caller Name"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#1A237E" />
+
+            <TextView
+                android:id="@+id/tvLanguageBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tamil"
+                android:textSize="12sp"
+                android:textColor="#0D47A1"
+                android:background="#BBDEFB"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+91 98765 43210"
+            android:textSize="14sp"
+            android:textColor="#546E7A"
+            android:layout_marginTop="2dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ECEFF1"
+            android:layout_marginVertical="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reason of Calling:"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#78909C" />
+
+        <TextView
+            android:id="@+id/tvCallReason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wants to speak with Imran regarding urgent project discussion."
+            android:textSize="14sp"
+            android:textColor="#263238"
+            android:layout_marginTop="2dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCallBack"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:text="Call Back via SIM 1"
+            android:textSize="14sp"
+            android:backgroundTint="#1B5E20"
+            app:cornerRadius="8dp" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+
