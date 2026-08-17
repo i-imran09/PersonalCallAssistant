@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Personal Call Assistant</string>
+    <string name="title_v2">Personal Call Assistant V2</string>
+    <string name="hint_phone">Enter Phone Number</string>
+    <string name="btn_check">Check Contact</string>
+    <string name="permission_rationale">Contacts permission is required to check whether this number exists in your phone.</string>
+    <string name="permission_denied">Permission denied. Cannot check contacts without permission.</string>
+    <string name="invalid_number">Please enter a valid phone number (at least 6 digits).</string>
+</resources>
